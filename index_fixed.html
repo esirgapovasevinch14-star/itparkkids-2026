@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT PARK KIDS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sky: #dff1ff; --mint: #e6fff5; --coral: #ff6b4a; --coral-dark: #ea4f2d;
+            --sun: #ffc93c; --sun-dark: #e6a700; --leaf: #06b87a; --leaf-dark: #049363;
+            --periwinkle: #6c63ff; --ink: #232152; --ink-soft: #585a86; --card: #ffffff; --line: #e6e9fb;
+            --gbtn: #3b3572; --gbtn-dark: #2a2652; --gline: #dfe3ee;
+        }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; min-height: 100%; }
+        body {
+            font-family: 'Nunito', sans-serif; color: var(--ink); padding: 24px 16px 60px;
+            background:
+                radial-gradient(circle at 12% 8%, rgba(255,107,74,0.16), transparent 40%),
+                radial-gradient(circle at 88% 14%, rgba(255,201,60,0.20), transparent 38%),
+                radial-gradient(circle at 20% 92%, rgba(6,184,122,0.14), transparent 42%),
+                radial-gradient(circle at 90% 85%, rgba(108,99,255,0.14), transparent 40%),
+                linear-gradient(160deg, var(--sky) 0%, var(--mint) 100%);
+            background-attachment: fixed;
+        }
+        .wrap { max-width: 480px; margin: 0 auto; }
+        .hero { text-align: center; margin-bottom: 22px; }
+        .hero .badge-eyebrow {
+            display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+            font-weight: 700; letter-spacing: 1.5px; color: var(--leaf-dark);
+            background: rgba(6,184,122,0.12); padding: 5px 12px; border-radius: 999px; margin-bottom: 10px;
+        }
+        .hero h1 { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 34px; margin: 0 0 6px; color: var(--ink); }
+        .hero p { margin: 0; color: var(--ink-soft); font-weight: 600; font-size: 15px; }
+
+        /* ---- Kid-style dashboard cards ---- */
+        .block {
+            border: 1px solid var(--line); padding: 18px; margin-bottom: 16px; border-radius: 20px;
+            background: var(--card); box-shadow: 0 10px 24px -14px rgba(35,33,82,0.18);
+        }
+        .block[data-accent="coral"] { border-top: 5px solid var(--coral); }
+        .block[data-accent="sun"] { border-top: 5px solid var(--sun); }
+        .block[data-accent="leaf"] { border-top: 5px solid var(--leaf); }
+        .block[data-accent="peri"] { border-top: 5px solid var(--periwinkle); }
+        .block h3 { font-family: 'Baloo 2', sans-serif; font-size: 19px; margin: 0 0 10px; color: var(--ink); }
+        .block h4 { font-family: 'Baloo 2', sans-serif; font-size: 16px; margin: 14px 0 6px; color: var(--ink); }
+        .hint { font-size: 13px; color: var(--ink-soft); margin: -2px 0 8px; }
+        hr.split { border: none; border-top: 2px dashed var(--line); margin: 14px 0; }
+
+        input, select, textarea, button {
+            width: 100%; padding: 11px 12px; margin: 6px 0; box-sizing: border-box;
+            font-family: 'Nunito', sans-serif; font-size: 15px; border-radius: 12px;
+        }
+        input, select, textarea { border: 2px solid var(--line); background: #fbfcff; color: var(--ink); }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--periwinkle); }
+        button {
+            font-family: 'Baloo 2', sans-serif; background-color: var(--coral); color: white; border: none;
+            cursor: pointer; font-weight: 700; font-size: 16px; transition: transform 0.08s ease, background-color 0.15s ease;
+        }
+        button:hover { background-color: var(--coral-dark); }
+        button:active { transform: scale(0.98); }
+        .secondary { background-color: var(--ink-soft); }
+        .secondary:hover { background-color: #464870; }
+        .success-btn { background-color: var(--leaf); }
+        .success-btn:hover { background-color: var(--leaf-dark); }
+        .hidden { display: none !important; }
+
+        /* ---- Sign-in style cards (clean "account" look) ---- */
+        .signin-card {
+            background: #fff; border: 1px solid var(--gline); border-radius: 24px;
+            padding: 32px 28px 24px; margin: 0 auto 18px; max-width: 380px;
+            box-shadow: 0 1px 2px rgba(35,33,82,0.06), 0 8px 24px -12px rgba(35,33,82,0.15);
+            text-align: center;
+        }
+        .signin-card .icon-circle {
+            width: 52px; height: 52px; border-radius: 50%; margin: 0 auto 16px;
+            background: conic-gradient(from 180deg, var(--coral), var(--sun), var(--leaf), var(--periwinkle), var(--coral));
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Baloo 2', sans-serif; font-weight: 800; color: #fff; font-size: 13px;
+            box-shadow: 0 2px 8px rgba(35,33,82,0.2);
+        }
+        .signin-card h3 { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 22px; color: var(--ink); margin: 0 0 4px; }
+        .signin-card p.sub { font-size: 13px; color: var(--ink-soft); margin: 0 0 20px; font-weight: 600; }
+        .signin-card input, .signin-card select {
+            text-align: left; border: 1px solid var(--gline); border-radius: 8px; padding: 12px 14px;
+        }
+        .signin-card input:focus, .signin-card select:focus { border-color: var(--gbtn); border-width: 2px; padding: 11px 13px; }
+        .card-actions { display: flex; justify-content: flex-end; align-items: center; margin-top: 14px; gap: 8px; }
+        .card-actions button {
+            width: auto; background-color: var(--gbtn); border-radius: 999px; padding: 10px 22px; font-size: 14px;
+        }
+        .card-actions button:hover { background-color: var(--gbtn-dark); }
+        .card-actions .link-btn {
+            width: auto; background: none; color: var(--gbtn); font-weight: 700; padding: 10px 8px; margin-right: auto;
+        }
+        .card-actions .link-btn:hover { background: rgba(59,53,114,0.06); }
+
+        .project-card { border: 2px solid var(--line); border-radius: 16px; padding: 14px; margin: 10px 0; background: #fbfcff; }
+        .project-card strong { font-family: 'Baloo 2', sans-serif; font-size: 17px; }
+        .project-card a { color: var(--periwinkle); font-weight: 700; text-decoration: none; }
+        .project-card a:hover { text-decoration: underline; }
+        .project-card small { color: var(--ink-soft); font-weight: 700; }
+        .project-card button { width: auto; display: inline-block; }
+        .badge {
+            display: inline-block; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 12px;
+            color: #7a4b00; background: linear-gradient(135deg, var(--sun), var(--sun-dark));
+            padding: 3px 10px; border-radius: 999px; margin-left: 6px; box-shadow: 0 2px 0 rgba(230,167,0,0.5);
+        }
+        .tag {
+            display: inline-block; font-size: 12px; font-weight: 800; color: var(--periwinkle);
+            background: rgba(108,99,255,0.10); padding: 3px 10px; border-radius: 999px; margin-left: 6px;
+        }
+        .tag.done { color: #888; background: #eee; }
+        .tag.challenge { color: var(--coral-dark); background: rgba(255,107,74,0.12); }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .top-bar span { font-weight: 800; font-family: 'Baloo 2', sans-serif; font-size: 15px; }
+        .top-bar button { width: auto; padding: 8px 16px; }
+        #tokens-block { text-align: center; background: linear-gradient(135deg, #fff8e6, #fff1cc); border: 2px dashed var(--sun-dark); }
+        #tokens-block h3 { margin: 0; color: #8a5a00; }
+        #tokens-amount { font-family: 'JetBrains Mono', monospace; font-size: 34px; font-weight: 700; color: var(--sun-dark); margin-top: 4px; }
+        .filter-row { display: flex; gap: 8px; margin-bottom: 4px; }
+        .filter-row select { margin: 0; }
+        .user-row { display: flex; justify-content: space-between; align-items: center; }
+
+        /* IT PARK KIDS uslubidagi kengaytirilgan Kirish kartasi */
+        .main-auth-layout {
+            max-width: 820px !important;
+            display: flex;
+            text-align: left !important;
+            padding: 0 !important;
+            gap: 0;
+            align-items: stretch;
+            overflow: hidden;
+            border-radius: 26px;
+        }
+
+        .auth-left {
+            flex: 0 0 42%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding: 40px 32px;
+            color: #fff;
+            background: conic-gradient(from 180deg, var(--coral), var(--sun), var(--leaf), var(--periwinkle), var(--coral));
+            overflow: hidden;
+        }
+
+        .auth-left::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(35, 33, 82, 0.35);
+        }
+
+        .auth-left > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(2px);
+            font-family: 'Baloo 2', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .main-auth-layout .auth-left h3 {
+            font-size: 30px !important;
+            font-weight: 800 !important;
+            margin-bottom: 12px !important;
+            font-family: 'Baloo 2', sans-serif !important;
+            color: #fff !important;
+        }
+
+        .main-auth-layout .auth-left p.sub {
+            font-size: 14.5px !important;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.92) !important;
+            font-weight: 600;
+        }
+
+        .auth-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 36px;
+            background: #fff;
+        }
+
+        .auth-right .field-label {
+            font-family: 'Baloo 2', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--ink-soft);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin: 0 4px 6px;
+        }
+
+        /* Pilla shaklidagi input guruhlari */
+        .input-outline-group {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-outline-group input {
+            width: 100%;
+            padding: 14px 18px !important;
+            border: 2px solid var(--line) !important;
+            border-radius: 14px !important;
+            font-size: 15px !important;
+            font-family: 'Nunito', sans-serif !important;
+            background: #fbfcff !important;
+            color: var(--ink);
+            outline: none;
+            margin: 0 !important;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-outline-group input::placeholder {
+            color: transparent;
+        }
+
+        .input-outline-group input:focus {
+            border-color: var(--periwinkle) !important;
+            box-shadow: 0 0 0 3px rgba(108,99,255,0.15);
+        }
+
+        .input-outline-group label {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #fbfcff;
+            padding: 0 6px;
+            color: var(--ink-soft);
+            transition: 0.2s ease all;
+            pointer-events: none;
+            font-size: 14.5px;
+            font-weight: 600;
+            border-radius: 6px;
+        }
+
+        /* Input ichiga yozilganda yoki fokus bo'lganda label tepaga chiqishi */
+        .input-outline-group input:focus ~ label,
+        .input-outline-group input:not(:placeholder-shown) ~ label {
+            top: 0;
+            font-size: 11.5px;
+            color: var(--periwinkle);
+            background: #fff;
+        }
+
+        /* Linklar va tugmalar dizayni */
+        .auth-links-row {
+            margin-bottom: 22px;
+        }
+
+        .forgot-link, .create-account-link {
+            color: var(--periwinkle);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13.5px;
+        }
+
+        .forgot-link:hover, .create-account-link:hover {
+            text-decoration: underline;
+        }
+
+        .guest-notice {
+            font-size: 13px;
+            color: var(--ink-soft);
+            margin-bottom: 28px;
+            line-height: 1.5;
+            font-weight: 600;
+            background: var(--mint);
+            border: 2px dashed var(--leaf);
+            border-radius: 14px;
+            padding: 12px 14px;
+        }
+
+        .guest-notice a {
+            color: var(--leaf-dark);
+            text-decoration: none;
+            font-weight: 800;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .card-actions-google {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            gap: 12px;
+        }
+
+        .google-next-btn {
+            width: auto !important;
+            background-color: var(--coral) !important;
+            color: white !important;
+            border-radius: 999px !important;
+            padding: 12px 28px !important;
+            font-size: 14px !important;
+            font-family: 'Baloo 2', sans-serif !important;
+            font-weight: 700 !important;
+            box-shadow: 0 6px 14px rgba(255,107,74,0.35);
+        }
+
+        .google-next-btn:hover {
+            background-color: var(--coral-dark) !important;
+        }
+
+        /* Mobil qurilmalar uchun moslashuvchanlik (Responsive) */
+        @media (max-width: 768px) {
+            .main-auth-layout {
+                flex-direction: column;
+                border-radius: 20px;
+            }
+            .auth-left {
+                padding: 28px 24px;
+            }
+            .auth-right {
+                padding: 28px 24px;
+            }
+            .main-auth-layout .auth-left h3 {
+                font-size: 24px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="hero">
+        <span class="badge-eyebrow">SCRATCH · WEB · ROBOTOTEXNIKA · AI</span>
+        <h1 id="hero-title">🎓 IT PARK KIDS</h1>
+        <p id="hero-subtitle">Bolalar loyihalari, IT tokenlar va g'alaba nishonlari</p>
+    </div>
+
+    <!-- AUTH SECTIONS (Google-style sign-in card) -->
+    <div id="auth-area">
+        <div class="signin-card main-auth-layout" id="login-view">
+            <!-- Chap tomondagi matnlar qismi -->
+            <div class="auth-left">
+                <div class="auth-badge">IPK</div>
+                <h3>Kirish</h3>
+                <p class="sub">IT PARK KIDS hisobingiz bilan kiring. Bu hisobdan platformadagi barcha bo'limlarda foydalanish mumkin.</p>
+            </div>
+
+            <!-- O'ng tomondagi input va tugmalar qismi -->
+            <div class="auth-right">
+                <div class="input-outline-group">
+                    <input type="text" id="login-email" placeholder=" " maxlength="20" required>
+                    <label for="login-email">IT manzil</label>
+                </div>
+
+                <div class="input-outline-group">
+                    <input type="password" id="login-password" placeholder=" " required>
+                    <label for="login-password">Parol</label>
+                </div>
+
+                <div class="auth-links-row">
+                    <a href="#" class="forgot-link">IT manzilingiz esdan chiqdimi?</a>
+                </div>
+
+                <div class="guest-notice">
+                    Bu sizning kompyuteringiz emasmi? Mehmon rejimi orqali hisobingizga kiring.
+                    <a href="#" onclick="guestLogin()">Mehmon rejimidan foydalanish haqida batafsil</a>
+                </div>
+
+                <div class="card-actions-google">
+                    <a href="#" class="create-account-link" onclick="showRegisterView(event)">Hisob yaratish</a>
+                    <button class="google-next-btn" onclick="login()">Kirish</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ro'yxatdan o'tish va Mehmon rejimi kartalari (dastlab yashirin, "Hisob yaratish" bosilganda ochiladi) -->
+        <div id="register-guest-area" class="hidden">
+            <div class="signin-card">
+                <div class="icon-circle">IPK</div>
+                <h3>Ro'yxatdan o'tish</h3>
+                <p class="sub">Yangi hisob yarating</p>
+                <div class="input-outline-group">
+                    <input type="text" id="reg-email" placeholder=" " maxlength="20" required>
+                    <label for="reg-email">IT manzil</label>
+                </div>
+                <p class="hint" style="margin:-10px 0 14px;">Lotin harflari, raqam va pastki chiziqdan foydalaning, 3-20 belgi (masalan: ali_2010).</p>
+                <input type="password" id="reg-password" placeholder="Parol yarating">
+                <select id="reg-role" >
+                    <option value="student">O'quvchi</option>
+                    <option value="teacher">Ustoz (Teacher)</option>
+                </select>
+                <!-- Ustoz paroli ro'yxatdan o'tishda emas, tizim tomonidan beriladi: USTOZ-2026 -->
+                <div class="card-actions">
+                    <button onclick="register()">Ro'yxatdan o'tish</button>
+                </div>
+                <p class="sub" style="margin:14px 0 0;">
+                    Hisobingiz bormi? <a href="#" class="forgot-link" onclick="showLoginView(event)">Kirish</a>
+                </p>
+            </div>
+
+            <div class="signin-card">
+                <div class="icon-circle">👋</div>
+                <h3>Mehmon rejimi</h3>
+                <p class="sub">Hisobsiz, faqat ko'rish uchun kiring</p>
+                <div class="card-actions" style="justify-content:center;">
+                    <button class="secondary" style="width:auto; padding:10px 24px; border-radius:999px;" onclick="guestLogin()">Mehmon sifatida kirish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher secondary-password verification overlay -->
+    <div id="teacher-verify-overlay" class="hidden" style="position:fixed; inset:0; background:rgba(35,33,82,0.55); display:flex; align-items:center; justify-content:center; z-index:999; padding:16px;">
+        <div class="signin-card" style="margin:0; max-width:340px;">
+            <div class="icon-circle">🔒</div>
+            <h3>Ustoz tasdiqlash</h3>
+            <p class="sub" id="teacher-verify-sub">Ustoz paneliga kirish uchun maxsus kodni kiriting</p>
+            <input type="password" id="teacher-verify-input" placeholder="Maxsus kod">
+            <div class="card-actions" style="justify-content:center;">
+                <button onclick="verifyTeacherPassword()">Tasdiqlash</button>
+            </div>
+            <p class="sub" style="margin:14px 0 0;">
+                <a href="#" class="forgot-link" onclick="cancelTeacherVerify(event)">Bekor qilish (chiqish)</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- MAIN APP (after login) -->
+    <div id="main-area" class="hidden">
+        <div class="block top-bar">
+            <span id="whoami"></span>
+            <button class="secondary" onclick="logout()">Chiqish</button>
+        </div>
+
+        <div id="tokens-block" class="block hidden">
+            <h3>🪙 Sizning IT Tokenlaringiz</h3>
+            <div id="tokens-amount">0</div>
+        </div>
+
+        <!-- Public: active challenges -->
+        <div class="block" data-accent="sun">
+            <h3>🔥 Faol Challenge'lar</h3>
+            <div id="challenges-list">Yuklanmoqda...</div>
+        </div>
+
+        <!-- Student upload form -->
+        <div id="student-panel" class="block hidden" data-accent="coral">
+            <h3>Loyiha yuklash</h3>
+            <p class="hint">Loyiha shartlarga mos bo'lsa avtomatik qabul qilinadi, so'ng ustoz tasdiqlaydi.</p>
+            <input type="text" id="p-title" placeholder="Loyiha nomi">
+            <select id="p-category">
+                <option value="scratch">🧩 Scratch</option>
+                <option value="web">🌐 Web (HTML/CSS)</option>
+                <option value="game">🎮 GameDev</option>
+                <option value="robot">🤖 Robototexnika</option>
+                <option value="ai">✨ AI</option>
+                <option value="design">🎨 Dizayn/Rasm</option>
+                <option value="other">📦 Boshqa</option>
+            </select>
+            <select id="p-challenge">
+                <option value="">Yo'q - oddiy loyiha</option>
+            </select>
+            <textarea id="p-desc" placeholder="Tavsif (kamida 4-5 so'z bilan, nima qilganingizni yozing)" rows="3"></textarea>
+            <input type="text" id="p-link" placeholder="Sayt/loyiha havolasi (https://...)">
+            <input type="text" id="p-teammates" placeholder="Jamoadoshlar IT manzili (vergul bilan, ixtiyoriy, max 2 kishi)">
+            <button onclick="uploadProject()">Yuklash</button>
+        </div>
+
+        <!-- Teacher panel -->
+        <div id="teacher-panel" class="block hidden" data-accent="leaf">
+            <h3>Ustoz paneli</h3>
+            <p class="hint">Quyida tasdiqlanishi kerak bo'lgan loyihalar ro'yxati:</p>
+            <div id="pending-list">Yuklanmoqda...</div>
+
+            <hr class="split">
+            <h4>🆕 Yangi challenge e'lon qilish</h4>
+            <input type="text" id="ch-title" placeholder="Challenge nomi (masalan: Kosmik o'yin haftaligi)">
+            <textarea id="ch-desc" placeholder="Tavsif/shartlar" rows="2"></textarea>
+            <input type="number" id="ch-reward" placeholder="Bonus token (masalan 5)" min="0.25" step="0.25">
+            <button class="success-btn" onclick="createChallenge()">E'lon qilish</button>
+
+            <hr class="split">
+            <h4>📋 Barcha challenge'lar</h4>
+            <div id="teacher-challenges-list">Yuklanmoqda...</div>
+
+            <hr class="split">
+            <h4>👥 Ro'yxatdan o'tgan foydalanuvchilar</h4>
+            <div id="users-list">Yuklanmoqda...</div>
+        </div>
+
+        <!-- Guest info -->
+        <div id="guest-panel" class="block hidden" data-accent="sun">
+            <p style="margin:0;">👋 Mehmon sifatida faqat loyihalarni ko'rishingiz mumkin.</p>
+        </div>
+
+        <div class="block" data-accent="peri">
+            <h3>📂 Barcha loyihalar</h3>
+            <div class="filter-row">
+                <select id="category-filter" onchange="renderProjects()">
+                    <option value="all">Barcha yo'nalishlar</option>
+                    <option value="scratch">🧩 Scratch</option>
+                    <option value="web">🌐 Web</option>
+                    <option value="game">🎮 GameDev</option>
+                    <option value="robot">🤖 Robototexnika</option>
+                    <option value="ai">✨ AI</option>
+                    <option value="design">🎨 Dizayn</option>
+                    <option value="other">📦 Boshqa</option>
+                </select>
+            </div>
+            <div id="projects-list">Yuklanmoqda...</div>
+        </div>
+    </div>
+
+    <!-- Yashirin OWNER paneli: Ctrl+Shift+~ bosilganda ochiladi, har qanday sahifada, login qilinmagan bo'lsa ham -->
+    <div id="owner-verify-overlay" class="hidden" style="position:fixed; inset:0; background:rgba(35,33,82,0.7); display:flex; align-items:center; justify-content:center; z-index:1001; padding:16px;">
+        <div class="signin-card" style="margin:0; max-width:340px;">
+            <div class="icon-circle">🗝️</div>
+            <h3>Owner rejimi</h3>
+            <p class="sub">Maxsus kodni kiriting</p>
+            <input type="password" id="owner-verify-input" placeholder="Maxsus kod">
+            <div class="card-actions" style="justify-content:center;">
+                <button onclick="verifyOwnerCode()">Tasdiqlash</button>
+            </div>
+            <p class="sub" style="margin:14px 0 0;">
+                <a href="#" class="forgot-link" onclick="closeOwnerOverlay(event)">Bekor qilish</a>
+            </p>
+        </div>
+    </div>
+
+    <div id="owner-panel-overlay" class="hidden" style="position:fixed; inset:0; background:rgba(223,241,255,0.98); z-index:1000; overflow-y:auto; padding:24px 16px 60px;">
+        <div class="wrap">
+            <div class="block top-bar" data-accent="peri">
+                <span>🗝️ Owner paneli</span>
+                <button class="secondary" onclick="closeOwnerPanel()">Yopish</button>
+            </div>
+
+            <div class="block" data-accent="peri">
+                <h3>📊 Statistika</h3>
+                <div id="owner-stats" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">Yuklanmoqda...</div>
+            </div>
+
+            <div class="block" data-accent="periwinkle" style="border-top:5px solid var(--periwinkle);">
+                <h3>✨ Maxsus AI yordamchi</h3>
+                <p class="hint">Saytdagi joriy holat (statistika) haqida savol bering yoki e'lon matni, challenge g'oyasi so'rang.</p>
+                <textarea id="owner-ai-input" placeholder="Masalan: Eng faol 3 ta o'quvchini ayt, yoki yangi challenge g'oyasi taklif qil" rows="2"></textarea>
+                <button onclick="ownerAskAI()">So'rash</button>
+                <div id="owner-ai-response" class="hint" style="white-space:pre-wrap; margin-top:8px;"></div>
+                <hr class="split">
+                <h4>🛠️ AI orqali sayt kodini o'zgartirish</h4>
+                <p class="hint">Nima o'zgartirilishi kerakligini yozing — AI kod tahririni tayyorlab, GitHub'da Pull Request (ko'rib chiqish uchun taklif) ochadi. Sayt darhol o'zgarmaydi — siz PR'ni ko'rib, tasdiqlaganingizdan keyingina saytga chiqadi.</p>
+                <textarea id="owner-code-instruction" placeholder="Masalan: tugmalar rangini ko'kdan yashilga o'zgartir" rows="2"></textarea>
+                <button onclick="ownerEditCode()">Kod tahririni so'rash</button>
+                <div id="owner-code-response" class="hint" style="white-space:pre-wrap; margin-top:8px;"></div>
+            </div>
+
+            <div class="block" data-accent="leaf">
+                <h3>🆕 Yangi challenge e'lon qilish</h3>
+                <input type="text" id="own-ch-title" placeholder="Challenge nomi">
+                <textarea id="own-ch-desc" placeholder="Tavsif/shartlar" rows="2"></textarea>
+                <input type="number" id="own-ch-reward" placeholder="Bonus token (masalan 5)" min="0.25" step="0.25">
+                <button class="success-btn" onclick="ownerCreateChallenge()">E'lon qilish</button>
+                <hr class="split">
+                <h4>📋 Barcha challenge'lar</h4>
+                <div id="owner-challenges-list">Yuklanmoqda...</div>
+            </div>
+
+            <div class="block" data-accent="sun">
+                <h3>✅ Tasdiqlanishi kerak bo'lgan loyihalar</h3>
+                <div id="owner-pending-list">Yuklanmoqda...</div>
+            </div>
+
+            <div class="block" data-accent="coral">
+                <h3>📂 Barcha loyihalar (o'chirish mumkin)</h3>
+                <div id="owner-projects-list">Yuklanmoqda...</div>
+            </div>
+
+            <div class="block" data-accent="peri">
+                <h3>👥 Foydalanuvchilar / Ustozlar</h3>
+                <p class="hint">Token qo'shish/ayirish uchun IT manzil va miqdorni kiriting (ayirish uchun manfiy son yozing). Rolni ham shu yerdan almashtirishingiz mumkin.</p>
+                <div id="owner-users-list">Yuklanmoqda...</div>
+            </div>
+
+            <div class="block" data-accent="sun">
+                <h3>📝 Sayt matnlarini tahrirlash</h3>
+                <p class="hint">Bosh sahifadagi sarlavha va tavsif matnini shu yerdan o'zgartirishingiz mumkin — saqlagach, barcha tashrif buyuruvchilar uchun yangilanadi.</p>
+                <input type="text" id="own-site-title" placeholder="Sarlavha (masalan: IT PARK KIDS)">
+                <textarea id="own-site-subtitle" placeholder="Tavsif matni" rows="2"></textarea>
+                <button class="success-btn" onclick="ownerSaveSiteSettings()">Saqlash</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import {
+            getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+            signInAnonymously, onAuthStateChanged, signOut
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import {
+            getFirestore, doc, setDoc, getDoc, updateDoc, deleteDoc, collection, addDoc,
+            query, where, orderBy, onSnapshot, getDocs, serverTimestamp, increment
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // IT PARK KIDS loyihangizning HAQIQIY sozlamalari
+        const firebaseConfig = {
+            apiKey: "AIzaSyCN4I-pwfbYh0CXPwuEmYGplEkR38xdqrM",
+            authDomain: "it-park-kids-1d9fa.firebaseapp.com",
+            projectId: "it-park-kids-1d9fa",
+            storageBucket: "it-park-kids-1d9fa.firebasestorage.app",
+            messagingSenderId: "98560528654",
+            appId: "1:98560528654:web:ba77da3cc4ff262202075f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentRole = null;
+        let currentItAddress = null;
+        let latestSnapshotDocs = [];
+        let allChallenges = [];
+        let latestUsersDocs = [];
+        let ownerModeActive = false;
+
+        const CATEGORY_LABELS = {
+            scratch: '🧩 Scratch', web: '🌐 Web', game: '🎮 GameDev',
+            robot: '🤖 Robototexnika', ai: '✨ AI', design: '🎨 Dizayn', other: '📦 Boshqa'
+        };
+        const CATEGORY_KEYWORDS = {
+            scratch: ['scratch', 'sprite', 'blok', 'animatsiya', 'skript'],
+            web: ['sayt', 'html', 'css', 'veb', 'web', 'sahifa', 'browser'],
+            game: ['o\'yin', 'oyin', 'game', 'o\'ynash', 'darajalar', 'level'],
+            robot: ['robot', 'arduino', 'sensor', 'motor', 'mikrokontroller'],
+            ai: ['ai', 'sun\'iy', 'intellekt', 'model', 'chatbot', 'neyron'],
+            design: ['dizayn', 'rasm', 'logo', 'banner', 'chizma', 'grafika']
+        };
+        const BANNED_WORDS = ['blyad', 'suka', 'idiot', 'ahmoq', 'jinni', 'fuck', 'shit', 'bitch'];
+
+        function validateProject(title, desc, link, category) {
+            const errors = [];
+            const t = title.trim();
+            const d = desc.trim();
+            const wordCount = d.split(/\s+/).filter(Boolean).length;
+            if (t.length < 3) errors.push("Loyiha nomi kamida 3 harf bo'lishi kerak.");
+            if (d.length < 15 || wordCount < 4) errors.push("Tavsif juda qisqa. Kamida 4-5 so'z bilan, nima qilganingizni yozing.");
+            if (/^(.)\1{4,}$/.test(d.replace(/\s+/g, ''))) errors.push("Tavsif mazmunli emasga o'xshaydi (bir xil harflar takrorlangan).");
+            if (link && !/^https?:\/\//i.test(link.trim())) errors.push("Havola 'https://' bilan boshlanishi kerak.");
+            const combined = (t + ' ' + d).toLowerCase();
+            for (const bad of BANNED_WORDS) {
+                if (combined.includes(bad)) { errors.push("Matnda nomaqbul so'z aniqlandi. Iltimos, tozalab qayta yozing."); break; }
+            }
+            let topicMatch = true;
+            const keywords = CATEGORY_KEYWORDS[category];
+            if (keywords) topicMatch = keywords.some(k => combined.includes(k));
+            return { ok: errors.length === 0, errors, topicMatch };
+        }
+
+        function parseTeammates(raw, ownItAddress) {
+            const errors = [];
+            if (!raw || !raw.trim()) return { addresses: [], errors };
+            const parts = raw.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+            const clean = [];
+            for (const p of parts) {
+                if (!IT_ADDRESS_RE.test(p)) { errors.push(`"${p}" IT manzil formatga mos emas.`); continue; }
+                if (p === ownItAddress.toLowerCase()) continue;
+                if (!clean.includes(p)) clean.push(p);
+            }
+            if (clean.length > 2) errors.push("Ko'pi bilan 2 ta jamoadosh qo'shish mumkin (jami 3 kishi).");
+            return { addresses: clean.slice(0, 2), errors };
+        }
+
+        async function creditTokensToItAddress(itAddress, amount) {
+            try {
+                const usersQ = query(collection(db, "users"), where("itAddress", "==", itAddress));
+                const snap = await getDocs(usersQ);
+                if (snap.empty) return false;
+                for (const d of snap.docs) await updateDoc(doc(db, "users", d.id), { tokens: increment(amount) });
+                return true;
+            } catch (e) { console.error(e); return false; }
+        }
+
+        // ---------- AUTH ACTIONS ----------
+        // "IT manzil" — foydalanuvchi kiritadigan noyob nom (email emas).
+        // Firebase Auth email talab qilgani uchun buni ichki (ko'rinmas) email'ga aylantiramiz.
+        const IT_DOMAIN = "@itparkkids.uz";
+        const IT_ADDRESS_RE = /^[a-z0-9][a-z0-9_.]{2,19}$/;
+
+        function toInternalEmail(itAddress) {
+            return itAddress.trim().toLowerCase() + IT_DOMAIN;
+        }
+
+        function validateItAddress(raw) {
+            const clean = raw.trim().toLowerCase();
+            if (!IT_ADDRESS_RE.test(clean)) return null;
+            return clean;
+        }
+
+        window.toggleTeacherPasswordField = () => {
+            // Ustoz paroli ro'yxatdan o'tishda so'ralmaydi, tizim tomonidan belgilangan: USTOZ-2026
+        };
+
+        window.register = async () => {
+            const rawAddress = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const role = document.getElementById('reg-role').value;
+            // Ustoz paroli tizim tomonidan belgilangan: USTOZ-2026
+            const itAddress = validateItAddress(rawAddress);
+            if (!itAddress || !password) {
+                alert("IT manzil noto'g'ri! Faqat lotin harflari, raqam va pastki chiziqdan foydalaning (3-20 belgi), masalan: ali_2010");
+                return;
+            }
+            // Ustoz paroli ro'yxatdan o'tishda emas, tizim tomonidan beriladi: USTOZ-2026
+            try {
+                const cred = await createUserWithEmailAndPassword(auth, toInternalEmail(itAddress), password);
+                await setDoc(doc(db, "users", cred.user.uid), {
+                    itAddress: itAddress, email: toInternalEmail(itAddress), role: role, tokens: 0, createdAt: new Date().toISOString()
+                });
+            } catch (error) {
+                if (error.code === 'auth/email-already-in-use') alert("Bu IT manzil band, boshqasini tanlang.");
+                else alert("Xato: " + error.message);
+            }
+        };
+
+        window.login = async () => {
+            const rawAddress = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const itAddress = validateItAddress(rawAddress);
+            if (!itAddress || !password) { alert("IT manzil va parolni to'g'ri kiriting!"); return; }
+            try { await signInWithEmailAndPassword(auth, toInternalEmail(itAddress), password); }
+            catch (error) { alert("Xato: IT manzil yoki parol noto'g'ri"); }
+        };
+
+        window.guestLogin = async () => {
+            try { await signInAnonymously(auth); }
+            catch (error) { alert("Xato: " + error.message + " (Anonymous Auth Firebase Console'da yoqilganini tekshiring)"); }
+        };
+
+        window.showRegisterView = (e) => {
+            if (e) e.preventDefault();
+            document.getElementById('login-view').classList.add('hidden');
+            document.getElementById('register-guest-area').classList.remove('hidden');
+        };
+
+        window.showLoginView = (e) => {
+            if (e) e.preventDefault();
+            document.getElementById('register-guest-area').classList.add('hidden');
+            document.getElementById('login-view').classList.remove('hidden');
+        };
+
+        window.logout = async () => { await signOut(auth); };
+
+        // ---------- AUTH STATE LISTENER ----------
+        onAuthStateChanged(auth, async (user) => {
+            const authArea = document.getElementById('auth-area');
+            const mainArea = document.getElementById('main-area');
+            const studentPanel = document.getElementById('student-panel');
+            const teacherPanel = document.getElementById('teacher-panel');
+            const guestPanel = document.getElementById('guest-panel');
+            const whoami = document.getElementById('whoami');
+            const tokensBlock = document.getElementById('tokens-block');
+
+            const teacherVerifyOverlay = document.getElementById('teacher-verify-overlay');
+
+            studentPanel.classList.add('hidden');
+            teacherPanel.classList.add('hidden');
+            guestPanel.classList.add('hidden');
+            tokensBlock.classList.add('hidden');
+            teacherVerifyOverlay.classList.add('hidden');
+
+            if (!user) {
+                authArea.classList.remove('hidden');
+                mainArea.classList.add('hidden');
+                document.getElementById('register-guest-area').classList.add('hidden');
+                document.getElementById('login-view').classList.remove('hidden');
+                currentRole = null;
+                currentItAddress = null;
+                // Ustoz paroli tizim tomonidan belgilangan: USTOZ-2026
+                return;
+            }
+
+            authArea.classList.add('hidden');
+            mainArea.classList.remove('hidden');
+
+            if (user.isAnonymous) {
+                currentRole = 'guest';
+                whoami.textContent = "Mehmon sifatida ko'ryapsiz";
+                guestPanel.classList.remove('hidden');
+            } else {
+                const snap = await getDoc(doc(db, "users", user.uid));
+                const role = snap.exists() ? snap.data().role : 'student';
+                const tokens = snap.exists() ? (snap.data().tokens || 0) : 0;
+                const itAddress = (snap.exists() && snap.data().itAddress) ? snap.data().itAddress : (user.email || '').replace(IT_DOMAIN, '');
+                currentRole = role;
+                currentItAddress = itAddress;
+                whoami.textContent = itAddress + " (" + (role === 'teacher' ? "Ustoz" : "O'quvchi") + ")";
+                if (role === 'teacher') {
+                    // Ustoz paneli darhol ko'rsatilmaydi — avval maxsus kod so'raladi.
+                    // Ustoz paroli tizim tomonidan belgilangan: USTOZ-2026
+                    document.getElementById('teacher-verify-sub').textContent = "Ustoz paneliga kirish uchun maxsus kodni kiriting.";
+                    document.getElementById('teacher-verify-input').value = '';
+                    teacherVerifyOverlay.classList.remove('hidden');
+                } else {
+                    studentPanel.classList.remove('hidden');
+                    tokensBlock.classList.remove('hidden');
+                    document.getElementById('tokens-amount').textContent = tokens.toFixed(2);
+                }
+            }
+            renderProjects();
+        });
+
+        // ---------- TEACHER SECONDARY-PASSWORD VERIFICATION ----------
+        window.verifyTeacherPassword = async () => {
+            const input = document.getElementById('teacher-verify-input').value.trim();
+            if (!input) { alert("Iltimos, kodni kiriting!"); return; }
+
+            // Barcha ustozlar uchun umumiy maxsus kod: USTOZ-2026
+            const TEACHER_MASTER_PASSWORD = "USTOZ-2026";
+
+            if (input === TEACHER_MASTER_PASSWORD) {
+                document.getElementById('teacher-verify-overlay').classList.add('hidden');
+                document.getElementById('teacher-panel').classList.remove('hidden');
+                document.getElementById('teacher-verify-input').value = '';
+            } else {
+                alert("Kod noto'g'ri! Qayta urinib ko'ring.");
+                document.getElementById('teacher-verify-input').value = '';
+            }
+        };
+
+        window.cancelTeacherVerify = async (e) => {
+            if (e) e.preventDefault();
+            document.getElementById('teacher-verify-overlay').classList.add('hidden');
+            await signOut(auth);
+        };
+
+        // ---------- PROJECT UPLOAD ----------
+        window.uploadProject = async () => {
+            const title = document.getElementById('p-title').value;
+            const desc = document.getElementById('p-desc').value;
+            const link = document.getElementById('p-link').value;
+            const category = document.getElementById('p-category').value;
+            const challengeId = document.getElementById('p-challenge').value || null;
+            const teammatesRaw = document.getElementById('p-teammates').value;
+            const user = auth.currentUser;
+
+            if (!user || currentRole !== 'student') { alert("Faqat o'quvchilar loyiha yuklay oladi!"); return; }
+
+            const result = validateProject(title, desc, link, category);
+            if (!result.ok) { alert("Loyiha shartlarga mos emas:\n\n- " + result.errors.join("\n- ")); return; }
+            if (!result.topicMatch) {
+                const proceed = confirm("Tavsifingiz tanlangan yo'nalishga unchalik mos ko'rinmayapti. Baribir yuklashni xohlaysizmi?");
+                if (!proceed) return;
+            }
+
+            const teammateResult = parseTeammates(teammatesRaw, currentItAddress);
+            if (teammateResult.errors.length > 0) { alert("Jamoadoshlar bilan bog'liq xato:\n\n- " + teammateResult.errors.join("\n- ")); return; }
+
+            const team = [currentItAddress, ...teammateResult.addresses];
+            const tokensEarned = Math.round((Math.random() * 0.75 + 0.25) * 100) / 100;
+            const share = Math.round((tokensEarned / team.length) * 100) / 100;
+
+            try {
+                await addDoc(collection(db, "projects"), {
+                    title: title.trim(), desc: desc.trim(), link: link.trim(), category,
+                    authorItAddress: currentItAddress, authorUid: user.uid,
+                    collaborators: team, tokensPerPerson: share,
+                    challengeId: challengeId, winnerAwarded: false,
+                    tokens: tokensEarned, approved: false, likes: 0, views: 0,
+                    createdAt: serverTimestamp()
+                });
+
+                await updateDoc(doc(db, "users", user.uid), { tokens: increment(share) });
+
+                const notFound = [];
+                for (const addr of teammateResult.addresses) {
+                    const found = await creditTokensToItAddress(addr, share);
+                    if (!found) notFound.push(addr);
+                }
+
+                document.getElementById('p-title').value = '';
+                document.getElementById('p-desc').value = '';
+                document.getElementById('p-link').value = '';
+                document.getElementById('p-teammates').value = '';
+
+                const newSnap = await getDoc(doc(db, "users", user.uid));
+                const newTotal = newSnap.data().tokens || 0;
+                document.getElementById('tokens-amount').textContent = newTotal.toFixed(2);
+
+                let msg = `Loyiha shartlarga mos! Ustoz tasdiqlagach hammaga ko'rinadi.\nJami ${tokensEarned} token, har biriga ${share} token 🪙`;
+                if (notFound.length > 0) msg += `\n\n⚠️ Bu IT manzil(lar) tizimda topilmadi, ularga token berilmadi: ${notFound.join(', ')}`;
+                alert(msg);
+            } catch (error) { alert("Xato: " + error.message); }
+        };
+
+        // ---------- TEACHER: APPROVE PROJECT ----------
+        window.approveProject = async (projectId) => {
+            try { await updateDoc(doc(db, "projects", projectId), { approved: true }); }
+            catch (error) { alert("Xato: " + error.message); }
+        };
+
+        // ---------- TEACHER: CREATE CHALLENGE ----------
+        window.createChallenge = async () => {
+            const title = document.getElementById('ch-title').value.trim();
+            const desc = document.getElementById('ch-desc').value.trim();
+            const reward = parseFloat(document.getElementById('ch-reward').value);
+            if (title.length < 3) { alert("Challenge nomini kiriting!"); return; }
+            if (!reward || reward <= 0) { alert("Bonus token miqdorini kiriting (masalan 5)!"); return; }
+            try {
+                await addDoc(collection(db, "challenges"), {
+                    title, desc, reward, active: true,
+                    createdBy: currentItAddress, createdAt: serverTimestamp()
+                });
+                document.getElementById('ch-title').value = '';
+                document.getElementById('ch-desc').value = '';
+                document.getElementById('ch-reward').value = '';
+                alert("Challenge e'lon qilindi! 🔥");
+            } catch (error) { alert("Xato: " + error.message); }
+        };
+
+        window.closeChallenge = async (challengeId) => {
+            try { await updateDoc(doc(db, "challenges", challengeId), { active: false }); }
+            catch (error) { alert("Xato: " + error.message); }
+        };
+
+        window.markChallengeWinner = async (projectId) => {
+            const project = latestSnapshotDocs.find(p => p.id === projectId);
+            if (!project) { alert("Loyiha topilmadi."); return; }
+            const challenge = allChallenges.find(c => c.id === project.challengeId);
+            if (!challenge) { alert("Bog'liq challenge topilmadi."); return; }
+            const team = (project.collaborators && project.collaborators.length) ? project.collaborators : [project.authorItAddress];
+            const share = Math.round((challenge.reward / team.length) * 100) / 100;
+            try {
+                for (const addr of team) await creditTokensToItAddress(addr, share);
+                await updateDoc(doc(db, "projects", projectId), { winnerAwarded: true });
+                alert(`G'olib deb belgilandi! Har bir jamoadoshga +${share} bonus token berildi 🏆`);
+            } catch (error) { alert("Xato: " + error.message); }
+        };
+
+        window.likeProject = async (projectId) => {
+            const likedKey = 'liked_' + projectId;
+            if (localStorage.getItem(likedKey)) { alert("Siz bu loyihaga allaqachon like bosgansiz!"); return; }
+            try {
+                await updateDoc(doc(db, "projects", projectId), { likes: increment(1) });
+                localStorage.setItem(likedKey, '1');
+            } catch (error) { alert("Xato: " + error.message); }
+        };
+
+        function challengeTagFor(challengeId) {
+            if (!challengeId) return '';
+            const c = allChallenges.find(c => c.id === challengeId);
+            if (!c) return '';
+            return `<span class="tag challenge">🏆 ${escapeHtml(c.title)}</span>`;
+        }
+
+        window.renderProjects = () => {
+            const container = document.getElementById('projects-list');
+            const filterEl = document.getElementById('category-filter');
+            const filter = filterEl ? filterEl.value : 'all';
+            const approved = latestSnapshotDocs.filter(p => p.approved);
+            const filtered = filter === 'all' ? approved : approved.filter(p => p.category === filter);
+            if (filtered.length === 0) { container.innerHTML = "<p>Hali tasdiqlangan loyihalar yo'q.</p>"; return; }
+            container.innerHTML = '';
+            filtered.forEach((p) => {
+                const viewedKey = 'viewed_' + p.id;
+                if (!sessionStorage.getItem(viewedKey)) {
+                    sessionStorage.setItem(viewedKey, '1');
+                    updateDoc(doc(db, "projects", p.id), { views: increment(1) }).catch(() => {});
+                }
+                const team = (p.collaborators && p.collaborators.length > 1) ? p.collaborators.join(', ') : (p.authorItAddress || "Noma'lum");
+                const teamNote = (p.collaborators && p.collaborators.length > 1) ? ` (jamoa, har biriga ${p.tokensPerPerson} 🪙)` : '';
+                const winnerBtn = (currentRole === 'teacher' && p.challengeId && !p.winnerAwarded)
+                    ? `<button class="success-btn" onclick="markChallengeWinner('${p.id}')">🏆 G'olib deb belgilash</button>` : '';
+                const wonTag = p.winnerAwarded ? `<span class="tag" style="color:#8a5a00;background:rgba(230,167,0,0.15);">🏆 G'olib</span>` : '';
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.innerHTML = `
+                    <strong>${escapeHtml(p.title)}</strong>
+                    ${p.category ? `<span class="tag">${CATEGORY_LABELS[p.category] || p.category}</span>` : ""}
+                    ${challengeTagFor(p.challengeId)}
+                    ${wonTag}
+                    ${p.tokens ? `<span class="badge">🪙 ${p.tokens}</span>` : ""}<br>
+                    ${p.desc ? escapeHtml(p.desc) + "<br>" : ""}
+                    ${p.link ? `<a href="${escapeHtml(p.link)}" target="_blank">${escapeHtml(p.link)}</a><br>` : ""}
+                    <small>👤 ${escapeHtml(team)}${teamNote}</small><br>
+                    <button onclick="likeProject('${p.id}')">👍 Like (${p.likes || 0})</button>
+                    <span style="font-size:13px; color:#888; margin-left:8px;">👁 ${p.views || 0} ko'rish</span>
+                    ${winnerBtn}
+                `;
+                container.appendChild(card);
+            });
+        };
+
+        function renderPending() {
+            const pendingContainer = document.getElementById('pending-list');
+            if (!pendingContainer) return;
+            const pending = latestSnapshotDocs.filter(p => !p.approved);
+            if (pending.length === 0) { pendingContainer.innerHTML = "<p>Tasdiqlanishi kerak bo'lgan loyihalar yo'q 🎉</p>"; return; }
+            pendingContainer.innerHTML = '';
+            pending.forEach((p) => {
+                const team = (p.collaborators && p.collaborators.length > 1) ? p.collaborators.join(', ') : (p.authorItAddress || "Noma'lum");
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.innerHTML = `
+                    <strong>${escapeHtml(p.title)}</strong>
+                    ${p.category ? `<span class="tag">${CATEGORY_LABELS[p.category] || p.category}</span>` : ""}
+                    ${challengeTagFor(p.challengeId)}<br>
+                    ${p.desc ? escapeHtml(p.desc) + "<br>" : ""}
+                    ${p.link ? `<a href="${escapeHtml(p.link)}" target="_blank">${escapeHtml(p.link)}</a><br>` : ""}
+                    <small>👤 ${escapeHtml(team)}</small><br>
+                    <button onclick="approveProject('${p.id}')">✅ Tasdiqlash</button>
+                `;
+                pendingContainer.appendChild(card);
+            });
+        }
+
+        function renderPublicChallenges() {
+            const container = document.getElementById('challenges-list');
+            const active = allChallenges.filter(c => c.active);
+            if (active.length === 0) { container.innerHTML = "<p>Hozircha faol challenge yo'q.</p>"; return; }
+            container.innerHTML = '';
+            active.forEach((c) => {
+                const div = document.createElement('div');
+                div.className = 'project-card';
+                div.innerHTML = `<strong>${escapeHtml(c.title)}</strong> <span class="badge">🪙 +${c.reward}</span><br>${c.desc ? escapeHtml(c.desc) : ''}`;
+                container.appendChild(div);
+            });
+        }
+
+        function renderTeacherChallenges() {
+            const container = document.getElementById('teacher-challenges-list');
+            if (!container) return;
+            if (allChallenges.length === 0) { container.innerHTML = "<p>Hali challenge yaratilmagan.</p>"; return; }
+            container.innerHTML = '';
+            allChallenges.forEach((c) => {
+                const div = document.createElement('div');
+                div.className = 'project-card';
+                div.innerHTML = `
+                    <strong>${escapeHtml(c.title)}</strong>
+                    ${c.active ? `<span class="tag">Faol</span>` : `<span class="tag done">Yakunlangan</span>`}<br>
+                    ${c.desc ? escapeHtml(c.desc) + "<br>" : ""}
+                    <small>🪙 Bonus: ${c.reward}</small><br>
+                    ${c.active ? `<button onclick="closeChallenge('${c.id}')">🏁 Yakunlash</button>` : ''}
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function populateChallengeDropdown() {
+            const select = document.getElementById('p-challenge');
+            if (!select) return;
+            const current = select.value;
+            const active = allChallenges.filter(c => c.active);
+            select.innerHTML = '<option value="">Yo\'q - oddiy loyiha</option>' +
+                active.map(c => `<option value="${c.id}">${escapeHtml(c.title)} (+${c.reward})</option>`).join('');
+            if ([...select.options].some(o => o.value === current)) select.value = current;
+        }
+
+        function renderUsersList(list) {
+            const container = document.getElementById('users-list');
+            if (!container) return;
+            if (list.length === 0) { container.innerHTML = "<p>Hali hech kim ro'yxatdan o'tmagan.</p>"; return; }
+            container.innerHTML = list.map(u => `
+                <div class="project-card user-row">
+                    <div>
+                        <strong>${escapeHtml(u.itAddress || (u.email || '—').replace(IT_DOMAIN, ''))}</strong><br>
+                        <small>${u.role === 'teacher' ? "👩‍🏫 Ustoz" : "🧒 O'quvchi"}</small>
+                    </div>
+                    <span class="badge">🪙 ${(Number(u.tokens) || 0).toFixed(2)}</span>
+                </div>
+            `).join('');
+        }
+
+        // ---------- LIVE LISTENERS ----------
+        const projectsQ = query(collection(db, "projects"), orderBy("createdAt", "desc"));
+        onSnapshot(projectsQ, (snapshot) => {
+            latestSnapshotDocs = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+            renderProjects();
+            renderPending();
+            if (ownerModeActive) { renderOwnerProjects(); renderOwnerPending(); renderOwnerStats(); }
+        }, (error) => {
+            document.getElementById('projects-list').innerHTML = "<p style='color:red'>Loyihalarni yuklashda xato: " + error.message + "</p>";
+        });
+
+        const challengesQ = query(collection(db, "challenges"), orderBy("createdAt", "desc"));
+        onSnapshot(challengesQ, (snapshot) => {
+            allChallenges = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+            renderPublicChallenges();
+            renderTeacherChallenges();
+            populateChallengeDropdown();
+            renderProjects();
+            if (ownerModeActive) { renderOwnerChallenges(); renderOwnerStats(); }
+        }, (error) => {
+            const el = document.getElementById('challenges-list');
+            if (el) el.innerHTML = "<p style='color:red'>Challenge'larni yuklashda xato: " + error.message + "</p>";
+        });
+
+        onSnapshot(collection(db, "users"), (snapshot) => {
+            const list = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+            list.sort((a, b) => (a.itAddress || a.email || '').localeCompare(b.itAddress || b.email || ''));
+            latestUsersDocs = list;
+            renderUsersList(list);
+            if (ownerModeActive) { renderOwnerUsers(); renderOwnerStats(); }
+        }, () => { /* ruxsat yo'q bo'lsa (masalan mehmon), jim o'tkazamiz */ });
+
+        // =====================================================================
+        // ---------- YASHIRIN OWNER PANELI (Ctrl+Shift+~) ----------
+        // Bu panel login holatidan qat'i nazar ochiladi. DIQQAT: bu faqat
+        // ko'rinishni yashiradi — haqiqiy himoya Firestore Security Rules orqali
+        // bo'lishi kerak, chunki har qanday sahifa manbasini ko'rgan odam bu
+        // kodni JS faylida topa oladi. Haqiqiy maxfiylik uchun Firebase konsolida
+        // qoidalarni sozlash tavsiya etiladi.
+        const OWNER_MASTER_CODE = "ITPARK-OWNER-2026";
+
+        window.addEventListener('keydown', (e) => {
+            const key = (e.key || '').toLowerCase();
+            if (e.ctrlKey && e.shiftKey && (key === '~' || key === '`' || e.code === 'Backquote')) {
+                e.preventDefault();
+                if (ownerModeActive) return; // allaqachon ochiq
+                document.getElementById('owner-verify-input').value = '';
+                document.getElementById('owner-verify-overlay').classList.remove('hidden');
+            }
+        });
+
+        window.closeOwnerOverlay = (e) => {
+            if (e) e.preventDefault();
+            document.getElementById('owner-verify-overlay').classList.add('hidden');
+        };
+
+        window.verifyOwnerCode = () => {
+            const input = document.getElementById('owner-verify-input').value.trim();
+            if (input !== OWNER_MASTER_CODE) {
+                alert("Kod noto'g'ri!");
+                document.getElementById('owner-verify-input').value = '';
+                return;
+            }
+            document.getElementById('owner-verify-overlay').classList.add('hidden');
+            ownerModeActive = true;
+            document.getElementById('owner-panel-overlay').classList.remove('hidden');
+            renderOwnerChallenges();
+            renderOwnerPending();
+            renderOwnerProjects();
+            renderOwnerUsers();
+            renderOwnerStats();
+            loadSiteSettingsIntoForm();
+        };
+
+        window.ownerToggleRole = async (userId, newRole) => {
+            try { await updateDoc(doc(db, "users", userId), { role: newRole }); }
+            catch (error) { alert("Xato: " + error.message); }
+        };
+
+        window.closeOwnerPanel = () => {
+            ownerModeActive = false;
+            document.getElementById('owner-panel-overlay').classList.add('hidden');
+        };
+
+        window.ownerCreateChallenge = async () => {
+            const title = document.getElementById('own-ch-title').value.trim();
+            const desc = document.getElementById('own-ch-desc').value.trim();
+            const reward = parseFloat(document.getElementById('own-ch-reward').value);
+            if (title.length < 3) { alert("Challenge nomini kiriting!"); return; }
+            if (!reward || reward <= 0) { alert("Bonus token miqdorini kiriting (masalan 5)!"); return; }
+            try {
+                await addDoc(collection(db, "challenges"), {
+                    title, desc, reward, active: true,
+                    createdBy: 'owner', createdAt: serverTimestamp()
+                });
+                document.getElementById('own-ch-title').value = '';
+                document.getElementById('own-ch-desc').value = '';
+                document.getElementById('own-ch-reward').value = '';
+                alert("Challenge e'lon qilindi! 🔥");
+            } catch (error) { alert("Xato: " + error.message); }
+        };
+
+        window.ownerCloseChallenge = async (challengeId) => {
+            try { await updateDoc(doc(db, "challenges", challengeId), { active: false }); renderOwnerChallenges(); }
+            catch (error) { alert("Xato: " + error.message); }
+        };
+
+        window.ownerApproveProject = async (projectId) => {
+            try { await updateDoc(doc(db, "projects", projectId), { approved: true }); renderOwnerPending(); renderOwnerProjects(); }
+            catch (error) { alert("Xato: " + error.message); }
+        };
+
+        window.ownerDeleteProject = async (projectId) => {
+            if (!confirm("Bu loyihani butunlay o'chirishga ishonchingiz komilmi?")) return;
+            try { await deleteDoc(doc(db, "projects", projectId)); renderOwnerProjects(); renderOwnerPending(); }
+            catch (error) { alert("Xato: " + error.message); }
+        };
+
+        window.ownerDeleteUser = async (userId) => {
+            if (!confirm("Bu foydalanuvchi yozuvini bazadan o'chirishga ishonchingiz komilmi? (Bu uning login hisobini o'chirmaydi, faqat ro'yxatdagi yozuvni o'chiradi)")) return;
+            try { await deleteDoc(doc(db, "users", userId)); renderOwnerUsers(); }
+            catch (error) { alert("Xato: " + error.message); }
+        };
+
+        window.ownerAdjustTokens = async (itAddress, inputId) => {
+            const amount = parseFloat(document.getElementById(inputId).value);
+            if (!amount) { alert("Miqdorni kiriting (masalan 5 yoki -2)!"); return; }
+            const found = await creditTokensToItAddress(itAddress, amount);
+            if (!found) { alert("Bu IT manzil topilmadi."); return; }
+            document.getElementById(inputId).value = '';
+            alert(`${itAddress} uchun ${amount} token qo'shildi/ayirildi ✅`);
+        };
+
+        function renderOwnerChallenges() {
+            const container = document.getElementById('owner-challenges-list');
+            if (!container) return;
+            if (allChallenges.length === 0) { container.innerHTML = "<p>Hali challenge yaratilmagan.</p>"; return; }
+            container.innerHTML = allChallenges.map(c => `
+                <div class="project-card">
+                    <strong>${escapeHtml(c.title)}</strong>
+                    ${c.active ? `<span class="tag">Faol</span>` : `<span class="tag done">Yakunlangan</span>`}<br>
+                    ${c.desc ? escapeHtml(c.desc) + "<br>" : ""}
+                    <small>🪙 Bonus: ${c.reward}</small><br>
+                    ${c.active ? `<button onclick="ownerCloseChallenge('${c.id}')">🏁 Yakunlash</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function renderOwnerPending() {
+            const container = document.getElementById('owner-pending-list');
+            if (!container) return;
+            const pending = latestSnapshotDocs.filter(p => !p.approved);
+            if (pending.length === 0) { container.innerHTML = "<p>Tasdiqlanishi kerak bo'lgan loyihalar yo'q 🎉</p>"; return; }
+            container.innerHTML = pending.map(p => `
+                <div class="project-card">
+                    <strong>${escapeHtml(p.title)}</strong><br>
+                    ${p.desc ? escapeHtml(p.desc) + "<br>" : ""}
+                    <small>👤 ${escapeHtml(p.authorItAddress || "Noma'lum")}</small><br>
+                    <button onclick="ownerApproveProject('${p.id}')">✅ Tasdiqlash</button>
+                </div>
+            `).join('');
+        }
+
+        function renderOwnerProjects() {
+            const container = document.getElementById('owner-projects-list');
+            if (!container) return;
+            if (latestSnapshotDocs.length === 0) { container.innerHTML = "<p>Hali loyiha yo'q.</p>"; return; }
+            container.innerHTML = latestSnapshotDocs.map(p => `
+                <div class="project-card">
+                    <strong>${escapeHtml(p.title)}</strong>
+                    ${p.approved ? `<span class="tag done">Tasdiqlangan</span>` : `<span class="tag challenge">Kutilmoqda</span>`}<br>
+                    <small>👤 ${escapeHtml(p.authorItAddress || "Noma'lum")}</small><br>
+                    <button onclick="ownerDeleteProject('${p.id}')" style="background-color:var(--coral-dark);">🗑 O'chirish</button>
+                </div>
+            `).join('');
+        }
+
+        function renderOwnerUsers() {
+            const container = document.getElementById('owner-users-list');
+            if (!container) return;
+            if (latestUsersDocs.length === 0) { container.innerHTML = "<p>Hali hech kim ro'yxatdan o'tmagan.</p>"; return; }
+            container.innerHTML = latestUsersDocs.map((u, i) => {
+                const address = u.itAddress || (u.email || '—').replace(IT_DOMAIN, '');
+                const inputId = `own-tok-${i}`;
+                return `
+                <div class="project-card">
+                    <strong>${escapeHtml(address)}</strong>
+                    <span class="tag">${u.role === 'teacher' ? "👩‍🏫 Ustoz" : "🧒 O'quvchi"}</span>
+                    <span class="badge">🪙 ${(Number(u.tokens) || 0).toFixed(2)}</span><br>
+                    <div style="display:flex; gap:6px; margin-top:6px;">
+                        <input type="number" id="${inputId}" placeholder="masalan 5 yoki -2" style="margin:0;">
+                        <button style="width:auto;" onclick="ownerAdjustTokens('${address}', '${inputId}')">Qo'llash</button>
+                    </div>
+                    <div style="display:flex; gap:6px; margin-top:6px;">
+                        <button style="width:auto; background-color:var(--gbtn);" onclick="ownerToggleRole('${u.id}', '${u.role === 'teacher' ? 'student' : 'teacher'}')">
+                            ${u.role === 'teacher' ? "⬇️ O'quvchi qilish" : "⬆️ Ustoz qilish"}
+                        </button>
+                        <button style="width:auto; background-color:var(--coral-dark);" onclick="ownerDeleteUser('${u.id}')">🗑 Yozuvni o'chirish</button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderOwnerStats() {
+            const container = document.getElementById('owner-stats');
+            if (!container) return;
+            const students = latestUsersDocs.filter(u => u.role !== 'teacher');
+            const teachers = latestUsersDocs.filter(u => u.role === 'teacher');
+            const totalTokens = students.reduce((sum, u) => sum + (Number(u.tokens) || 0), 0);
+            const approved = latestSnapshotDocs.filter(p => p.approved).length;
+            const pending = latestSnapshotDocs.filter(p => !p.approved).length;
+            const activeChallenges = allChallenges.filter(c => c.active).length;
+            const stat = (label, value) => `<div class="project-card" style="text-align:center; margin:0;"><div style="font-size:22px; font-weight:800; color:var(--periwinkle); font-family:'Baloo 2',sans-serif;">${value}</div><div style="font-size:12px; color:var(--ink-soft); font-weight:700;">${label}</div></div>`;
+            container.innerHTML =
+                stat("O'quvchilar", students.length) +
+                stat("Ustozlar", teachers.length) +
+                stat("Jami loyihalar", latestSnapshotDocs.length) +
+                stat("Tasdiqlangan", approved) +
+                stat("Kutilmoqda", pending) +
+                stat("Faol challenge'lar", activeChallenges) +
+                stat("Jami tarqatilgan token", totalTokens.toFixed(2));
+        }
+
+        // ---------- SAYT MATNLARI (Firestore: settings/site) ----------
+        async function applyPublicSiteSettings() {
+            try {
+                const snap = await getDoc(doc(db, "settings", "site"));
+                if (!snap.exists()) return;
+                const data = snap.data();
+                if (data.heroTitle) document.getElementById('hero-title').textContent = data.heroTitle;
+                if (data.heroSubtitle) document.getElementById('hero-subtitle').textContent = data.heroSubtitle;
+            } catch (e) { /* sozlamalar hali yaratilmagan bo'lishi mumkin, jim o'tkazamiz */ }
+        }
+        applyPublicSiteSettings();
+
+        window.loadSiteSettingsIntoForm = async () => {
+            try {
+                const snap = await getDoc(doc(db, "settings", "site"));
+                const data = snap.exists() ? snap.data() : {};
+                document.getElementById('own-site-title').value = data.heroTitle || document.getElementById('hero-title').textContent;
+                document.getElementById('own-site-subtitle').value = data.heroSubtitle || document.getElementById('hero-subtitle').textContent;
+            } catch (e) { /* jim o'tkazamiz */ }
+        };
+
+        window.ownerSaveSiteSettings = async () => {
+            const heroTitle = document.getElementById('own-site-title').value.trim();
+            const heroSubtitle = document.getElementById('own-site-subtitle').value.trim();
+            try {
+                await setDoc(doc(db, "settings", "site"), { heroTitle, heroSubtitle }, { merge: true });
+                document.getElementById('hero-title').textContent = heroTitle;
+                document.getElementById('hero-subtitle').textContent = heroSubtitle;
+                alert("Sayt matnlari saqlandi ✅");
+            } catch (error) { alert("Xato: " + error.message); }
+        };
+
+        // ---------- MAXSUS AI YORDAMCHI ----------
+        // DIQQAT: AI javobi xavfsizlik uchun to'g'ridan-to'g'ri brauzerdan emas,
+        // Netlify serverless funksiyasi orqali (netlify/functions/ai-assist.js)
+        // so'raladi — shunda Anthropic API kaliti hech qachon sahifa manbasida
+        // ko'rinmaydi. Funksiyani ishga tushirish bo'yicha ko'rsatma alohida
+        // fayl bilan birga beriladi.
+        window.ownerAskAI = async () => {
+            const input = document.getElementById('owner-ai-input').value.trim();
+            const responseBox = document.getElementById('owner-ai-response');
+            if (!input) { alert("Savolingizni yozing!"); return; }
+            responseBox.textContent = "O'ylanmoqda...";
+            const statsSummary = {
+                students: latestUsersDocs.filter(u => u.role !== 'teacher').length,
+                teachers: latestUsersDocs.filter(u => u.role === 'teacher').length,
+                totalProjects: latestSnapshotDocs.length,
+                pendingProjects: latestSnapshotDocs.filter(p => !p.approved).length,
+                activeChallenges: allChallenges.filter(c => c.active).length,
+                topProjectsByLikes: [...latestSnapshotDocs].sort((a, b) => (b.likes || 0) - (a.likes || 0)).slice(0, 5)
+                    .map(p => ({ title: p.title, likes: p.likes || 0, author: p.authorItAddress }))
+            };
+            try {
+                const res = await fetch('/.netlify/functions/ai-assist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: input, context: statsSummary })
+                });
+                if (!res.ok) throw new Error('Server javob bermadi (' + res.status + ')');
+                const data = await res.json();
+                responseBox.textContent = data.reply || "Javob olinmadi.";
+            } catch (error) {
+                responseBox.textContent = "Xato: " + error.message + "\n\n(Bu funksiya ishlashi uchun Netlify'da 'ai-assist' serverless funksiyasi va ANTHROPIC_API_KEY sozlangan bo'lishi kerak — quyidagi tushuntirishga qarang.)";
+            }
+        };
+
+        window.ownerEditCode = async () => {
+            const instruction = document.getElementById('owner-code-instruction').value.trim();
+            const responseBox = document.getElementById('owner-code-response');
+            if (!instruction) { alert("O'zgartirish so'rovini yozing!"); return; }
+            responseBox.textContent = "AI kodni tayyorlamoqda va Pull Request ochmoqda... (bu bir necha soniya vaqt olishi mumkin)";
+            try {
+                const res = await fetch('/.netlify/functions/ai-edit-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ instruction })
+                });
+                const data = await res.json();
+                if (!res.ok || data.error) {
+                    responseBox.textContent = "Xato: " + (data.error || ('Server javob bermadi (' + res.status + ')'));
+                    return;
+                }
+                if (!data.applied) {
+                    responseBox.textContent = "AI hech qanday o'zgarish qilmadi.\n" + (data.explanation || '');
+                    return;
+                }
+                let msg = "✅ Pull Request tayyor!\n" + (data.explanation || '') + "\n\n👉 Ko'rib chiqish uchun: " + data.prUrl;
+                if (data.skipped && data.skipped.length) msg += "\n\n⚠️ Ba'zi kichik tahrirlar qo'llanilmadi, PR tavsifida batafsil bor.";
+                responseBox.textContent = msg;
+            } catch (error) {
+                responseBox.textContent = "Xato: " + error.message + "\n\n(Bu funksiya uchun Netlify'da ANTHROPIC_API_KEY, GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO sozlangan bo'lishi kerak.)";
+            }
+        };
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str || '';
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
